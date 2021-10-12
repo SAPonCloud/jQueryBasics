@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Data APIs</title>
+</head>
+
+<body>
+  <button id="addData">Add Data to div element</button>
+  <button id="remData">Remove Data from div element</button>
+  <div id="dataExample"> <br/></div>
+  <div class="container">
+    <div class="color-box after">After</div>
+    <div class="color-box before">Before</div>
+    <div class="color-box append">Append</div>
+    <div class="color-box prepend">Prepend</div>
+  </div>
+  <br/>
+  <button id="showBoxes">Show Boxes</button>
+  <button id="hideBoxes">Hide Boxes</button>
+  <button id="toggleBoxes">Toggle Boxes</button>
+  <button id="fade">Fade To</button>
+  <button id="slide">Slide</button>
+  <button id="animate">Animate</button>
+</body>
+
+<script type="text/javascript" src="jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('#showBoxes').click(function () {
+      $('.color-box').show(500);
+      // $('.append').fadeIn(2000);
+    })
+
+    $('#hideBoxes').click(function () {
+      $('.color-box').hide(700);
+      // $('.append').fadeOut(2000);
+    });
+
+    $('#toggleBoxes').click(function () {
+      $('.color-box').toggle();
+    })
+
+    $('#fade').click(function () {
+      // $('.append').hide(2000);
+      $('.color-box').fadeTo(2000, 0.5);
+    })
+
+    $('#slide').click(function () {
+      $('.color-box').slideUp(2000);
+      $('.color-box').slideDown(2000);
+      $('.prepend').slideToggle(1000);
+    })
+
+    $('#animate').click(function () {
+      $('.color-box').animate({
+        'width': '200px',
+        'margin-top': '40px',
+        'opacity': 0.25
+      }, 2000);
+    })
+
+    $('#addData').click(function() {
+      $('#dataExample').data({
+        "cart": 200,
+        "item": 1
+      });
+    });
+
+    $('#remData').click(function() {
+      console.log($('#dataExample').data("cart"));
+      console.log($('#dataExample').data("item"));
+    })
+  });
+</script>
+
+<style>
+  .container {}
+
+  .color-box {
+    width: 150px;
+    height: 150px;
+    border: 1px solid black;
+    margin: 2px;
+    display: inline-block;
+  }
+
+  .after {
+    background-color: red;
+  }
+
+  .before {
+    background-color: blue;
+  }
+
+  .append {
+    background-color: cyan;
+  }
+
+  .prepend {
+    background-color: gold;
+  }
+</style>
+
+</html>

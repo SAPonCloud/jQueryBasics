@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+
+<body>
+  <a href="#">Outermost a tag</a>
+  <ul id="fruits"><b>A List of Fruits</b>
+    <li id="fruit-1">Guava</li>
+    <li id="li-2">Orage</li>
+    <a href="https://google.com">Outside</a>
+    <li id="kiwi">Kiwi
+      <div>
+        <a id="inside-a-div" href="#">Inside</a>
+      </div>
+    </li>
+    <li>Apple</li>
+    <li>Banana</li>
+    <li>Grapes</li>
+  </ul>
+  <button id="find" type="button" name="find">Find</button>
+  <button id="children" type="button" name="children">Children</button>
+  <button id="closest" type="button" name="closest">Closest</button>
+  <button id="parent" type="button" name="parent">Parent</button>
+  <button id="next" type="button">Next</button>
+  <button id="prev" type="button">Prev</button>
+  <button id="siblings" type="button">Siblings</button>
+  <button id="first" type="button">First</button>
+  <button id="last" type="button">Last</button>
+</body>
+
+<style> </style>
+
+<script type="text/javascript" src="jquery-3.6.0.min.js"></script>
+<script>
+  console.log("Hello World");
+  $(document).ready(function() {
+    console.log("Document is ready!");
+
+    $("#find").click(function() {
+      $("#fruits").find('a').css('color', 'green');
+    });
+    $("#children").click(function() {
+      $("#fruits").children("a").css('color', 'red');
+    });
+    $("#closest").click(function() {
+      $("#inside-a-div").closest("li").css('color', 'magenta');
+    });
+    $("#parent").click(function() {
+      $("#li-2").parent().css('border', '1px solid red');
+    });
+    $("#next").click(function() {
+      $("#kiwi").next().css('border', '2px dotted green');
+    });
+    $("#prev").click(function() {
+      $("#fruits li:last").prev().css('font-style', 'italic');
+    });
+    $("#siblings").click(function() { // It affects all the siblings except itself.
+      $("#fruit-1").siblings().css('font-size', '18px');
+      $("#fruits li:last").siblings().css('font-weight', 'bold');
+      $("#fruits li:first").siblings().css('font-family', 'sans-serif');
+    });
+    $("#first").click(function() {
+      $("li").first().text("Pear").css('color', 'cyan');
+    });
+    $("#last").click(function() {
+      $("li").last().css('border', '1px solid grey');//css('font-stretch', 'ultra-expanded');
+    });
+  });
+
+  console.log("At the last!");
+</script>
+
+</html>

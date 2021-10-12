@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+
+<body>
+  <h1>Heading H1</h1>
+  <div id="divID">
+  </div>
+  <div class="divClass">
+  </div>
+  </br>
+  <a href="google.com" target="_blank">Yahoo</a></br>
+  <a href="bing.com" target="_self">Bing</a>
+  <a href="bing.com" target="_notself">Bing</a>
+
+  <ul id="fruits" class="fruitClass">
+    <li id="fruit-1">Guava</li>
+    <li id="li-2">Orage</li>
+    <a href="https://google.com">Outside</a>
+    <div>
+      <a id="inside-a-div" href="#">Inside</a>
+    </div>
+    <li>Apple</li>
+    <li>Banana</li>
+    <li>Grapes</li>
+  </ul>
+  <button type="button" name="button">Click me</button>
+
+  <ul id="nations">
+    <li id="india">India
+      <ul id="indCities">
+        <li class='golden'>New Delhi</li>
+        <li>Mumbai</li>
+        <li>Pune</li>
+      </ul>
+    </li>
+    <li class='destination'>Germany
+      <ul id="cities">
+        <li>Stutgart</li>
+        <li>Frankfart</li>
+        <li>Berlin</li>
+      </ul>
+    </li>
+    <li>Canada</li>
+    <li>Sweden</li>
+    <li class='destination'>Denmark</li>
+  </ul>
+</body>
+
+<style>
+  #divID {
+    font-size: 20px;
+  }
+
+  .divClass {
+    font-size: 16px;
+    font-style: italic;
+  }
+
+  .golden {
+    color: gold;
+  }
+
+  .fruitClass {
+    font-family: monospace;
+  }
+
+  .destination {
+    font-weight: bold;
+  }
+
+  .purplify {
+    color: purple;
+  }
+</style>
+<script type="text/javascript" src="jquery-3.6.0.min.js"></script>
+<script>
+  console.log("Hello World");
+  console.log($);
+  console.log(jQuery);
+  console.log($ == jQuery);
+
+  $(document).ready(function() {
+    console.log("Document is ready!");
+
+    // .text() method overwrite the HTML content
+    $('#divID').text('Webpage is ready!')
+      .css('color', 'red')
+      .css('font-weight', 'bold')
+      .fadeIn(400);
+
+    $('.divClass').text('Class Selector').css('color', 'cyan');
+
+    $('h1').css('color', 'purple');
+
+    $('a[target="_self"]').css('color', 'pink');
+    $("a[href='google.com']").text('Google');
+    $("a:not([href='google.com'])").text('NotGoogle');
+
+    $("#fruits > li:first").css('color', 'green');
+    $("#fruits > li:last").css('color', 'brown');
+  })
+
+  var list = [1, 2, 3, 4, 5, 6];
+  $.each(list, function(index, value) {
+    console.log(index, value);
+  })
+
+  $('ul[id="fruits"]').each(function(index, element) {
+    // console.log(typeof element);
+    console.log($(this).text());
+    $(this).toggleClass('golden');
+  })
+
+  // Filtering Elements
+  $('li').eq(8).toggleClass('golden'); // Will consider all the 'li' elements
+  $('li').filter('.destination').toggleClass('purplify');
+
+  $('li').has('ul').css('background-color', 'lightblue').css('font-family', 'sans-serif');
+  $("#indCities").not('.golden').css('background-color', 'lightgrey');
+  console.log("At the last!");
+</script>
+
+</html>

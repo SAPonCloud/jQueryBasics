@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>jQuery Promise - Deferred Chaining</title>
+</head>
+
+<body>
+  <h3>Promise - Deferred Chaining</h3>
+  <p><tt id="results"></tt></p>
+</body>
+<script type="text/javascript" src="jquery-3.6.0.min.js"></script>
+<script>
+  $('document').ready(function() {
+    console.log('Document is ready');
+  });
+
+  var ajax1 = $.ajax({
+    url: 'https://api.jsonbin.io/b/615f54a14a82881d6c5cd68e',
+    type: 'GET',
+    dataType: 'json',
+    headers: {
+      "secret-key": "$2b$10$gq09hZusYZhIRNp3hAELTeJ8MDG8xhH2iZgqBq0cN5PqwteUtCazq"
+    }
+  });
+  var ajax2 = $.ajax({
+    url: 'https://api.jsonbin.io/b/61605aeb9548541c29c04af9/1',
+    type: 'GET',
+    dataType: 'json'
+  });
+
+  $.when(ajax1, ajax2).then(function(result1, result2) {
+      console.log('Success Callback: ', result1, result2);
+      var data = 'Ajax1 Result- ' + JSON.stringify(result1[0]);
+      $('#results').text(data);
+      var data = '</br>Ajax2 Result- ' + JSON.stringify(result2[0]);
+      $('#results').append(data);
+    },
+    function(error) {
+      console.log('Error Callback: ', error);
+    }
+  );
+</script>
+
+</html>

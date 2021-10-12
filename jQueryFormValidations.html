@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Form Validations</title>
+</head>
+
+<body>
+  <h1>Registration</h1>
+  <div class="container">
+    <p>Name <input type="text" name="name"></p>
+    <p>Email <input type="email" name="email"></p>
+    <p>Password <input type="password" name="password"></p>
+    <p>Bio <textarea name="bio" rows="5" cols="40"></textarea></p>
+    <input type="radio" name="testRadio1" value="">
+    <input type="radio" name="testRadio2" value="">
+    <br /><br />
+    <button type="button" name="reset">Reset</button>
+    <br /><br />
+    <button type="button" name="submit">Submit</button>
+    <br /><br />
+    I accept the terms.
+    <input type="checkbox" name="cb1" value="1">
+    <input type="checkbox" name="cb2" value="2">
+    <input type="checkbox" name="cb3" value="3">
+    <select id="cars" class="" name="">
+      <option value="tata">TATA</option>
+      <option value="bmw">BMW</option>
+      <option value="mercedes">Mercedes</option>
+      <option value="audi">Audi</option>
+    </select>
+  </div>
+  <div>
+    <p id="bindExamaple">This is a paragraph for demostrating binding of event handlers.</p>
+  </div>
+  <div id="colorbox" style="width:200px; height:100px; background-color: purple; border: 1px solid black">
+    <span style="color:white; font-size: 16px;" id="message"></span>
+  </div>
+  <div id="colorboxEvent" style="width:200px; height:100px; background-color: blue;border: 1px solid black; ">
+    <span style="color:white; font-size: 16px;" id="messageEvent"></span>
+  </div>
+  <a id="target-link" href="https://google.com" target="_blank">Google</a>
+</body>
+
+</html>
+
+<script type="text/javascript" src="jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+  $('document').ready(function() {
+    console.log("Document loaded.");
+
+    $('#bindExamaple').bind('click', function() {
+      alert("The paragraph was clicked!")
+      console.log('Bind');
+    });
+    $('textarea').bind('mouseenter', function() {
+      console.log("Cursor entered Bio.");
+    });
+    $('textarea').bind('mouseleave', function() {
+      console.log("Cursor left Bio.");
+    });
+    $('h1').bind('mouseenter', function() {
+      console.log("H1 heading");
+      console.log($(this).text());
+      $(this).unbind('mouseenter');
+    });
+
+    $('#colorbox').on({
+      mouseenter: function() {
+        $('#message').text('You have entered the box');
+      },
+      mouseleave: function() {
+        $('#message').text('You have left the box');
+      }
+    })
+
+    $('#colorboxEvent').on('mouseenter mouseleave', function(event) {
+      console.log(event);
+      // console.log(event.type);
+      // console.log(event.which);
+      // console.log(event.target);
+      // console.log(event.pageX);
+      // console.log(event.pageY);
+    })
+
+    $('#target-link').on('click', function (event) {
+      event.preventDefault();
+      $('input[type="checkbox"]').trigger('click');
+    })
+
+    $('input[name="testRadio1"]').one('click', function(){
+      console.log('Run once!');
+      $('#colorboxEvent').trigger('customEvent');
+    })
+    $('input[name="testRadio2"]').on('mouseenter mouseleave click', function(){
+      console.log('Testing off method!');
+      $(this).off('mouseenter');
+    })
+
+    $('input[type="checkbox"]').on('click', function() {
+      alert('Checkbox clicked!');
+    })
+    $('#colorboxEvent').bind('customEvent', function(event) {
+      console.log(event);
+      console.log('customEvent was called.');
+    })
+    $('#colorboxEvent').trigger('customEvent');
+  })
+</script>

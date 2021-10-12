@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Caching</title>
+</head>
+
+<body>
+  <h3>Caching</h3>
+  <p><tt id="results"></tt></p>
+</body>
+<script type="text/javascript" src="jquery-3.6.0.min.js"></script>
+<script>
+  $('document').ready(function() {
+    console.log('Document is ready');
+  });
+
+  var log = function(content) {
+    $('#results').append(content);
+  }
+  var cache = {};
+  var square = function(number) {
+    if (typeof cache[number] === "undefined") {
+      log('<p>Calculating square of '+number+'</p>');
+      var deferred = $.Deferred();
+      var answer = number * number;
+      deferred.resolve(answer);
+      cache[number] = deferred;
+      return deferred;
+    } else {
+      log('<p>Returning cached value for '+number+'</p>');
+      return cache[number];
+    }
+  };
+  square(2).then(function(answer) {
+    log('</br>Answer: Square of 2 is ' + answer);
+  });
+  square(3).then(function(answer) {
+    log('</br>Answer: Square of 3 is ' + answer);
+  });
+  square(2).then(function(answer) {
+    log('</br>Answer: Square of 2 is ' + answer);
+  });
+
+</script>
+
+</html>

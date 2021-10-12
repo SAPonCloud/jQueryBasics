@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>Promise Conceptually</title>
+</head>
+
+<body>
+  <h3>Promise Conceptually</h3>
+  <p><tt id="results"></tt></p>
+</body>
+<script type="text/javascript" src="jquery-3.6.0.min.js"></script>
+<script>
+  $('document').ready(function() {
+    console.log('Document is ready');
+  })
+
+  $.doit = function() {
+    var deferred = $.Deferred();
+    setTimeout(function() {
+      var randomNumber = Math.floor(Math.random() * 100);
+      if (randomNumber % 2 === 0) {
+        deferred.resolve(randomNumber); // Even Number
+      } else {
+        deferred.reject(randomNumber); // Odd Number
+      }
+    }, 2000);
+
+    return deferred.promise();
+  }
+  var retPromise = $.doit(); // Calls the API or asynchronous method
+
+  // Success Callbacks
+  retPromise.done(function(result) {
+    var data = 'Callback 2- Even Number: ' + result;
+    $('#results').text(data);
+  });
+  retPromise.done(function(result) {
+    console.log('Callback 1 - Even Number: ', result);
+  });
+  // Error callback
+  retPromise.fail(function(result) {
+    var data = 'Reject Callback - Odd Number: ' + result;
+    $('#results').text(data);
+  });
+  // Complete callback
+  retPromise.always(function() {
+    console.log('AJAX call completed');
+    $('#results').append('<br/>AJAX call completed');
+  });
+
+  retPromise.then(function(result) {
+      console.log('Callback 3 - called using .then()- Even Number: ', result);
+    },
+    function(result) {
+      console.log('Callback 3 - called using .then(): Odd Number: ', result);
+    }
+  );
+</script>
+
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>jQuery Promise</title>
+</head>
+
+<body>
+  <h3>Promise Practically</h3>
+  <p><tt id="results"></tt></p>
+</body>
+<script type="text/javascript" src="jquery-3.6.0.min.js"></script>
+<script>
+  $('document').ready(function() {
+    console.log('Document is ready');
+  })
+  // $.ajax({
+  //   url: 'https://api.jsonbin.io/b/615f54a14a82881d6c5cd68e',
+  //   type: 'GET',
+  //   dataType: 'json',
+  //   timeout: 2500,
+  //   success: function(result) {
+  //     console.log('Complete with success and data: ', result);
+  //   },
+  //   error: function(result) {
+  //     console.log('Complete with error');
+  //   },
+  //   complete: function() {
+  //     console.log('Request completed');
+  //   },
+  //   headers: {
+  //     "secret-key": "$2b$10$gq09hZusYZhIRNp3hAELTeJ8MDG8xhH2iZgqBq0cN5PqwteUtCazq"
+  //   }
+  // });
+
+  // Above ajax() has been implemented using Promise below
+  // Success and Error callbacks are invoked through the promise object
+  var dfd = $.ajax({
+    url: 'https://api.jsonbin.io/b/615f54a14a82881d6c5cd68e',
+    type: 'GET',
+    dataType: 'json',
+    timeout: 2500,
+    headers: {
+      "secret-key": "$2b$10$gq09hZusYZhIRNp3hAELTeJ8MDG8xhH2iZgqBq0cN5PqwteUtCazq"
+    }
+  });
+  // Success Callbacks
+  dfd.done( function(result) {
+    var data = 'Callback 2- ' + JSON.stringify(result);
+    $('#results').text(data);
+  });
+  dfd.done( function(result) {
+    console.log('Callback 1 - Complete with success and data: ', result);
+  });
+  // Error callback
+  dfd.fail( function(error) {
+    console.log('Complete with Error: ', error);
+    $('#results').text(JSON.stringify(error.responseJSON));
+  });
+  // Complete callback
+  dfd.always( function(result) {
+    console.log('AJAX call completed:', result);
+    $('#results').append('<br/>AJAX call completed');
+  });
+
+  dfd.then(function(result) {
+    console.log('Success Callback 3 - called using .then(): ', result);
+  },
+  function(error) {
+    console.log('Error Callback 3 - called using .then(): ', error);
+  });
+
+</script>
+
+</html>

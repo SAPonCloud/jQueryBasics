@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+  <meta charset="utf-8">
+  <title>jQuery AJAX</title>
+</head>
+
+<body>
+  <div class="container">
+    <button id="ajax" type="button" name="ajax">Click Me - AJAX</button>
+    <button id="ajax-get" type="button" name="ajax-get">GET</button>
+    <button id="getJSON" type="button" name="getJSON">getJSON</button>
+    <!-- <button id="ajax-post" type="button" name="ajax-post">POST</button> -->
+    <button id="ajax-load" type="button" name="ajax-load">LOAD</button>
+  </div>
+  <div class="loadContainer">
+  </div>
+</body>
+<script type="text/javascript" src="jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    console.log('Document ready!');
+  });
+
+  // AJAX request call
+  $("#ajax").click(function() {
+    $.ajax({
+      url: 'https://api.jsonbin.io/b/615f54a14a82881d6c5cd68e',
+      type: 'GET',
+      dataType: 'json',
+      timeout: 2500,
+      success: function(result) {
+        console.log('Complete with success and data: ', result);
+      },
+      error: function(result) {
+        console.log('Complete with error');
+      },
+      complete: function() {
+        console.log('Request completed');
+      },
+      headers: {
+        "secret-key": "$2b$10$gq09hZusYZhIRNp3hAELTeJ8MDG8xhH2iZgqBq0cN5PqwteUtCazq"
+      }
+    });
+  });
+
+  $("#ajax-get").click(function() {
+    $.get('https://api.jsonbin.io/b/61605aeb9548541c29c04af9/1', {}, // Query parameters in this object
+      function(res) {
+        console.log('Request completed.');
+        console.log(res);
+      },
+      'json'
+    );
+  })
+
+  $("#getJSON").click(function() {
+    $.get('https://api.jsonbin.io/b/61605aeb9548541c29c04af9/1', {}, // Query parameters in this object
+      function(res) {
+        console.log('getJSON request completed.');
+        console.log(res);
+      }
+    );
+  });
+
+  $("#ajax-load").click(function() {
+    $(".loadContainer").load("/test.html");
+  });
+
+  $("#ajax-post").click(function() {
+    $.post('https://api.jsonbin.io/b/61605aeb9548541c29c04af9/1', {
+        "name": "Cristiano Ronaldo",
+        "location": "Madeira, Portugal",
+        "age": 38,
+        "experience": 18,
+        "year_started": 2006
+      },
+      function(res) {
+        console.log('POST Request completed.');
+        console.log(res);
+      },
+      'json'
+    );
+  })
+</script>
+
+</html>
